@@ -3,4 +3,5 @@
     <string name="btnBuscarDia">Buscar</string>
     <string name="tvDiaSemNac" />
     <string name="etFechaNacimiento">Ingrese su fecha de nacimiento</string>
+    <string name="tvSigno">signo</string>
 </resources>
