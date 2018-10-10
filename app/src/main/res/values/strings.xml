@@ -3,5 +3,6 @@
     <string name="btnBuscarDia">Buscar</string>
     <string name="tvDiaSemNac" />
     <string name="etFechaNacimiento">Ingrese su fecha de nacimiento</string>
-    <string name="tvSigno">signo</string>
+    <string name="tvEdadCompleta">-</string>
+    <string name="tvProximoCumple">-</string>
 </resources>

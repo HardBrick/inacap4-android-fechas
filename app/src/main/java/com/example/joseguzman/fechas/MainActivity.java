@@ -13,31 +13,36 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    EditText etFechaNacimiento;
+
+    //OBJETOS LOCALES PARA TRABJAR VISTAS
     Button btnBuscarDia;
     TextView tvDiaSemNac;
+    EditText etFechaNacimiento;
     TextView tvEdadCompleta;
     TextView tvProximoCumple;
+
+    //FORMATOS DE FECHA
     SimpleDateFormat formatofecha = new SimpleDateFormat("dd/MM/yyyy"); //SDF formato de fecha dd/mm/aaaa
     SimpleDateFormat formatodia = new SimpleDateFormat("EEEE"); //SDF formato de fecha dia semana (lunes,martes,etc)
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //  REFERENCIAS DE VISTAS
         etFechaNacimiento = (EditText) findViewById(R.id.etFechaNacimiento);
         btnBuscarDia = (Button) findViewById(R.id.btnBuscarDia);
         tvDiaSemNac = (TextView) findViewById(R.id.tvDiaSemNac);
         tvEdadCompleta = (TextView) findViewById(R.id.tvEdadCompleta);
         tvProximoCumple = (TextView) findViewById(R.id.tvProximoCumple);
+
+        // ACCION DEL BOTON BUSCAR
         btnBuscarDia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 String fechaStr = etFechaNacimiento.getText().toString();
-
 
                 try{
                     formatofecha.setLenient(false);
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         Calendar cal = Calendar.getInstance();
                         cal.setTime(fecha);
                         tvDiaSemNac.setText("Naciste un día " + formatodia.format(fecha));
-                        tvEdadCompleta.setText(obtenerEdadMasDias(cal));
+                        tvEdadCompleta.setText(obtenerEdadCompleta(cal)/*obtenerEdadMasDias(cal)*/);
                         tvProximoCumple.setText(proximoCumple(cal));
                     }else{
                         etFechaNacimiento.setError("La fecha ingresada debe ser antes de la fecha actual!");
@@ -54,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                         tvEdadCompleta.setText("");
                         tvDiaSemNac.setText("");
                     }
-
 
                 }catch (Exception e){
                     etFechaNacimiento.setError("El formato de fecha debe ser dd/mm/aaaa");
@@ -103,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         return (edadCompleta);
     }
 
-
     public String obtenerEdadMasDias(Calendar fechaNac){
         int anos = Calendar.getInstance().get(Calendar.YEAR) - fechaNac.get(Calendar.YEAR);
         int diaNac = fechaNac.get(Calendar.DAY_OF_YEAR);
@@ -131,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
         }else{ //YA CUMPLIO
 
-           String fechaStr = formatofecha.format(Calendar.getInstance().getTime());
+           String fechaStr = formatofecha.format(fechaNac.getTime());
            anoprox = Integer.parseInt(fechaStr.substring(fechaStr.length()-1, fechaStr.length()))+1;
            proxFecha = fechaStr.substring(0, fechaStr.length()-1) + anoprox;
 
@@ -148,7 +151,5 @@ public class MainActivity extends AppCompatActivity {
 
         return "Faltan " + diasProximoCumple + " dias para tu próximo cumpleaños!" ;
     }
-
-
 
 }
